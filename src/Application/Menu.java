@@ -11,8 +11,11 @@ public class Menu {
 			"Display a list of all movies", 
 			"Find information about a specific movie", 
 			"Find movies that start with a letter",
+			"Add a movie to the list",
 			"Delete a movie from the list",
 			"Update information about the movie",
+			"Add a movie genre",
+			"Delete a genre",
 			"Close App");
 	
 	public void start() {
@@ -31,11 +34,17 @@ public class Menu {
 			} else if ( userSelection.equals("3") ) {
 				letterSearch();
 			} else if ( userSelection.equals("4") ) {
-				deleteMovie();
+				addMovie();
 			} else if ( userSelection.equals("5") ) {
+				deleteMovie();
+			} else if ( userSelection.equals("6") ) {
 				updateMovie();
+			} else if ( userSelection.equals("7") ) {
+				addGenre();
+			} else if ( userSelection.equals("8") ) {
+				updateGenre();
 			} else if ( userSelection.equals("0") ) {
-				//CLOSE APP
+				closeApp();
 			} 
 			
 			System.out.println("Press enter to continue....\n ");
@@ -44,7 +53,7 @@ public class Menu {
 		} while (!userSelection.equals("0"));
 		
 	}
-	
+
 	private void displayMenu() {
 		
 		System.out.println("Select an option: \n------------------------------------");
@@ -59,6 +68,12 @@ public class Menu {
 	}
 	
 	// Need to finish and potential add more methods 
+	private void closeApp() {
+		System.out.println("\n\n---------------------------------------\n");
+		System.out.println("Thank you for using the application");
+		System.exit(0);
+	}
+	
 	private void updateMovie() {
 		// TODO Auto-generated method stub
 		
@@ -84,5 +99,18 @@ public class Menu {
 		
 	}
 
+	private void updateGenre() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	private void addGenre() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addMovie() {
+		// TODO Auto-generated method stub
+		
+	}
 }
