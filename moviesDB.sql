@@ -25,7 +25,7 @@ PRIMARY KEY (id),
 FOREIGN KEY (genre_id) references genre(id)
 );
 
-CREATE table critic_rating(
+CREATE table rating(
 id int (11) not null auto_increment,
 star_rating int not null,
 movie_id int(11) not null,
