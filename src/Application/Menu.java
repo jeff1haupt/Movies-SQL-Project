@@ -8,14 +8,18 @@ public class Menu {
 	
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
+			"Create a movie",
+			"Update a movie by id,"
 			"Display a list of all movies", 
-			"Find information about a specific movie", 
-			"Find movies that start with a letter",
-			"Add a movie to the list",
-			"Delete a movie from the list",
-			"Update information about the movie",
-			"Add a movie genre",
-			"Delete a genre",
+			"Delete a movie by id", 
+			"Create a genre",
+			"Update a genre by id",
+			"Display all movies by genre",
+			"Delete a genre by id",
+			"Create a rating by movie id",
+			"Display all movies by number of stars",
+			"Update rating by id"
+			"Delete a rating",
 			"Close App");
 	
 	public void start() {
@@ -28,22 +32,30 @@ public class Menu {
 			userSelection = scanner.nextLine();
 			
 			if ( userSelection.equals("1") ) {
-				displayAllMovies();
+				createMovie();
 			} else if ( userSelection.equals("2") ) {
-				findSpecificMovie();
-			} else if ( userSelection.equals("3") ) {
-				letterSearch();
-			} else if ( userSelection.equals("4") ) {
-				addMovie();
-			} else if ( userSelection.equals("5") ) {
-				deleteMovie();
-			} else if ( userSelection.equals("6") ) {
 				updateMovie();
-			} else if ( userSelection.equals("7") ) {
-				addGenre();
-			} else if ( userSelection.equals("8") ) {
+			} else if ( userSelection.equals("3") ) {
+				displayAllMovies();
+			} else if ( userSelection.equals("4") ) {
+				deleteMovie();
+			} else if ( userSelection.equals("5") ) {
+				createGenre();
+			} else if ( userSelection.equals("6") ) {
 				updateGenre();
-			} else if ( userSelection.equals("0") ) {
+			} else if ( userSelection.equals("7") ) {
+				displayAllMoviesByGenre();
+			} else if ( userSelection.equals("8") ) {
+				deleteGenre();
+			} else if ( userSelection.equals("9") ) {
+				createRating();
+			} else if ( userSelection.equals("10") ) {
+				updateRating();
+			} else if ( userSelection.equals("11") ) {
+				displayAllMoviesByRating();
+			} else if ( userSelection.equals("12") ) {
+				deleteRating();
+			else if ( userSelection.equals("0") ) {
 				closeApp();
 			} 
 			
@@ -74,22 +86,12 @@ public class Menu {
 		System.exit(0);
 	}
 	
+	private void createMovie() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void updateMovie() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void deleteMovie() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void letterSearch() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void findSpecificMovie() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -99,17 +101,47 @@ public class Menu {
 		
 	}
 
+	private void deleteMovie() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createGenre() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void updateGenre() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void addGenre() {
+	private void displayAllMoviesByGenre() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void addMovie() {
+	private void deleteGenre() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void createRating() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void updateRating() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void displayAllMoviesByRating() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void deleteRating() {
 		// TODO Auto-generated method stub
 		
 	}
