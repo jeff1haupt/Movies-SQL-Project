@@ -9,7 +9,7 @@ public class Menu {
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
 			"Create a movie",
-			"Update a movie by id,"
+			"Update a movie by id",
 			"Display a list of all movies", 
 			"Delete a movie by id", 
 			"Create a genre",
@@ -18,7 +18,7 @@ public class Menu {
 			"Delete a genre by id",
 			"Create a rating by movie id",
 			"Display all movies by number of stars",
-			"Update rating by id"
+			"Update rating by id",
 			"Delete a rating",
 			"Close App");
 	
@@ -55,7 +55,7 @@ public class Menu {
 				displayAllMoviesByRating();
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
-			else if ( userSelection.equals("0") ) {
+			}else if ( userSelection.equals("0") ) {
 				closeApp();
 			} 
 			
