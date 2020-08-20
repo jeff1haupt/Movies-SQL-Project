@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import Entity.Movie;
+
 public class Menu {
 	
 	Scanner scanner = new Scanner(System.in);
@@ -159,7 +161,7 @@ public class Menu {
 		
 		do {
 		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = in.nextInt();
+		starRating = scanner.nextInt();
 		} while (starRating < 0 || starRating > 5);
 		System.out.println("Thank you for entering a " + starRating + " star rating.");
 			
