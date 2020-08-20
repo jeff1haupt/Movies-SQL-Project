@@ -95,10 +95,13 @@ public class Menu {
 		// TODO Auto-generated method stub
 		
 	}
-
-	private void displayAllMovies() {
-		// TODO Auto-generated method stub
-		
+	
+	//displays all movies with their title and id
+	private void displayAllMovies() throws SQLException {
+		List<Movie> movies = movieDao.getMovies(); 
+		for(Movie movie : movies) {
+			System.out.println(movie.getMovieId() + " : " + movie.getMovieTitle());
+		}
 	}
 
 	private void deleteMovie() {
@@ -106,9 +109,11 @@ public class Menu {
 		
 	}
 
-	private void createGenre() {
-		// TODO Auto-generated method stub
-		
+	// creates a new move genre
+	private void createGenre() throws SQLException {
+		System.out.print("Enter new genre: ");
+		String genreName = scanner.nextLine();                                                             
+		genreDao.createNewGenre(genreName);
 	}
 
 	private void updateGenre() {
@@ -126,14 +131,36 @@ public class Menu {
 		
 	}
 	
-	private void createRating() {
-		// TODO Auto-generated method stub
+	//creates a rating of a movie. Star rating is only 1-5
+	private void createRating() throws SQLException {
+		int starRating;
 		
+		System.out.print("Enter the movie id you wish to rate: ");
+		int movieId = scanner.nextLine();
+		
+		do {
+		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
+		starRating = in.nextInt();
+		} while (starRating < 0 || starRating > 5);
+		System.out.println("Thank you for entering a " + starRating + " star rating.");
+		
+		ratingDao.createNewRating(movieId, starRating);
 	}
 	
-	private void updateRating() {
-		// TODO Auto-generated method stub
+	//updates a rating by entering id and can only enter stars 1-5
+	private void updateRating() throws SQLException {
+		int starRating;
 		
+		System.out.print("Enter rating id to update rating: ");
+		int id = Integer.parseInt(scanner.nextLine());
+		
+		do {
+		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
+		starRating = in.nextInt();
+		} while (starRating < 0 || starRating > 5);
+		System.out.println("Thank you for entering a " + starRating + " star rating.");
+			
+		ratingDao.updateRatingById(ratingId, starRating);
 	}
 	
 	private void displayAllMoviesByRating() {
