@@ -151,7 +151,7 @@ public class Menu {
 	private void updateRating() throws SQLException {
 		int starRating;
 		
-		System.out.print("Enter rating id to update rating: ");
+		System.out.print("Enter rating id to update star rating: ");
 		int id = Integer.parseInt(scanner.nextLine());
 		
 		do {
