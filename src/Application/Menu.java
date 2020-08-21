@@ -11,24 +11,18 @@ import Dao.RatingDao;
 import Entity.Movie;
 import Entity.Genre;
 import Entity.Rating;
-import Dao.GenreDao;
-import Dao.MovieDao;
-import Dao.RatingDao;
+
 
 
 public class Menu {
-<<<<<<< HEAD
-	
-	private MovieDao movieDao = new MovieDao();
+
+
+
 	private GenreDao genreDao = new GenreDao();
-	private RatingDao ratingDao = new RatingDao();
-=======
-	private Dao.GenreDao genreDao = new GenreDao();
 	private MovieDao movieDao = new MovieDao();
 	private RatingDao ratingDao = new RatingDao();
 
 
->>>>>>> branch 'master' of https://github.com/jeff1haupt/Movies-SQL-Project.git
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
 			"Create a movie",
