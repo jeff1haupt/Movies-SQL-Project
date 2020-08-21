@@ -137,9 +137,11 @@ public class Menu {
 		}
 	}
 
-	private void deleteMovie() {
+	private void deleteMovie() throws SQLException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Enter the movie ID number you would like to delete: \n");
+		int movieIdDelete = scanner.nextInt();
+		movieDao.deleteMovie(movieIdDelete);
 	}
 
 	// creates a new move genre
@@ -149,13 +151,20 @@ public class Menu {
 		genreDao.createNewGenre(genreName);
 	}
 
-	private void updateGenre() {
+	private void updateGenre() throws SQLException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Enter the id for the genre you would like to update: \n");
+		int updateGenre = scanner.nextInt();
+		System.out.println("Please enter the updated genre: ")
+		String updatedGenre = scanner.nextLine();
+		genreDao.updateGenre(updateGenre, updatedGenre);
 	}
 
-	private void displayAllMoviesByGenre() {
+	private void displayAllMoviesByGenre() throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
+		int genreId = scanner.nextInt();
+		List<Movie> moviesByGenre = genreDao.getMoviesByGenre(genreId);
 		
 	}
 

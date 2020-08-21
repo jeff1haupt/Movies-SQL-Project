@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entity.Genre;
+import Entity.Movie;
 
 
 
@@ -39,6 +40,16 @@ public class GenreDao {
 	public void createNewGenre(String genreName) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void updateGenre(int updateGenre, String updatedGenre) {
+		// Jeff to finish
+		
+	}
+
+	public List<Movie> getMoviesByGenre(int genreId) {
+		// Jeff to finish
+		return null;
 	}
 }
 
