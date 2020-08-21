@@ -92,6 +92,20 @@ public class Menu {
 	private void createMovie() {
 		// TODO Auto-generated method stub
 
+		System.out.println("Enter the movie title: \n");
+		String movieTitle = scanner.next();
+		System.out.println("Enter the total length in minutes: \n");
+		int movieLength = scanner.nextInt();
+		System.out.println("Enter the release date: \n");
+		String releaseDate = scanner.next();
+		System.out.println("Enter movie's director: \n");
+		String director = scanner.next();
+		System.out.println("Enter movie's actor: \n");
+		String actor = scanner.next();
+		System.out.println("Enter movie's revenue earned: \n");
+		String moneyMade = scanner.next();
+		movieDao.addRun(movieTitle, movieLength, releaseDate, director, actor, moneyMade);
+		
 	}
 
 	private void updateMovie() {
