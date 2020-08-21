@@ -23,7 +23,6 @@ public class Movie {
 		this.setLeadActor(leadActor);
 		this.setRevenue(revenue);
 		this.setGenres(genres);
-		 
 	}
 
 	public int getMovieId() {

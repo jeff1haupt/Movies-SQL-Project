@@ -1,11 +1,23 @@
 package Application;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import Entity.Movie;
+import Entity.Genre;
+import Entity.Rating;
+import Dao.GenreDao;
+import Dao.MovieDao;
+import Dao.RatingDao;
+
 public class Menu {
-	
+	private Dao.GenreDao genreDao = new GenreDao();
+	private MovieDao movieDao = new MovieDao();
+	private RatingDao ratingDao = new RatingDao();
+
+
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
 			"Create a movie",
@@ -20,9 +32,10 @@ public class Menu {
 			"Display all movies by number of stars",
 			"Update rating by id",
 			"Delete a rating",
+			"Get Genre By ID",
 			"Close App");
 	
-	public void start() {
+	public void start() throws SQLException {
 		
 		String userSelection = "";
 		
@@ -55,7 +68,9 @@ public class Menu {
 				displayAllMoviesByRating();
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
-			}else if ( userSelection.equals("0") ) {
+			} else if (userSelection.equals("13")) {
+				getGenreByIdMenu();
+			} else if ( userSelection.equals("0") ) {
 				closeApp();
 			} 
 			
@@ -64,6 +79,12 @@ public class Menu {
 			
 		} while (!userSelection.equals("0"));
 		
+	}
+
+	private void getGenreByIdMenu() throws SQLException {
+		System.out.println("Enter the genre id: \n");
+		int id = scanner.nextInt();
+		genreDao.getGenreById(id);
 	}
 
 	private void displayMenu() {
@@ -88,7 +109,19 @@ public class Menu {
 	
 	private void createMovie() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Enter the movie title: \n");
+		String movieTitle = scanner.next();
+		System.out.println("Enter the total length in minutes: \n");
+		int movieLength = scanner.nextInt();
+		System.out.println("Enter the release date: \n");
+		String releaseDate = scanner.next();
+		System.out.println("Enter movie's director: \n");
+		String director = scanner.next();
+		System.out.println("Enter movie's actor: \n");
+		String actor = scanner.next();
+		System.out.println("Enter movie's revenue earned: \n");
+		String moneyMade = scanner.next();
+		movieDao.addRun(movieTitle, movieLength, releaseDate, director, actor, moneyMade);
 	}
 
 	private void updateMovie() {
@@ -136,7 +169,7 @@ public class Menu {
 		int starRating;
 		
 		System.out.print("Enter the movie id you wish to rate: ");
-		int movieId = scanner.nextLine();
+		int movieId = Integer.parseInt(scanner.nextLine());
 		
 		do {
 		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
@@ -156,7 +189,7 @@ public class Menu {
 		
 		do {
 		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = in.nextInt();
+		starRating = scanner.nextInt();
 		} while (starRating < 0 || starRating > 5);
 		System.out.println("Thank you for entering a " + starRating + " star rating.");
 			
