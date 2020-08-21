@@ -5,10 +5,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import Dao.GenreDao;
+import Dao.MovieDao;
+import Dao.RatingDao;
 import Entity.Movie;
+
 
 public class Menu {
 	
+	private MovieDao movieDao = new MovieDao();
+	private GenreDao genreDao = new GenreDao();
+	private RatingDao ratingDao = new RatingDao();
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
 			"Create a movie",
@@ -101,7 +108,7 @@ public class Menu {
 	
 	//displays all movies with their title and id
 	private void displayAllMovies() throws SQLException {
-		List<Movie> movies = movieDao.getMovies(); 
+		List<Movie> movies = movieDao.getMovie(); 
 		for(Movie movie : movies) {
 			System.out.println(movie.getMovieId() + " : " + movie.getMovieTitle());
 		}
@@ -157,7 +164,7 @@ public class Menu {
 		int starRating;
 		
 		System.out.print("Enter rating id to update star rating: ");
-		int id = Integer.parseInt(scanner.nextLine());
+		int ratingId = Integer.parseInt(scanner.nextLine());
 		
 		do {
 		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
