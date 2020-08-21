@@ -1,12 +1,21 @@
 package Dao;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+=======
+import java.util.List;
 
+import Entity.Movie;
+
+public class MovieDao {
+>>>>>>> branch 'master' of https://github.com/jeff1haupt/Movies-SQL-Project.git
+
+<<<<<<< HEAD
 import Entity.Movie;
 
 
@@ -67,4 +76,17 @@ public class MovieDao {
 			ps.executeUpdate();
 		}
 	
+=======
+	public void addRun(String movieTitle, int movieLength, String releaseDate, String director, String actor,
+			String moneyMade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Movie> getMovies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+>>>>>>> branch 'master' of https://github.com/jeff1haupt/Movies-SQL-Project.git
 }
