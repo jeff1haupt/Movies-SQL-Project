@@ -372,7 +372,7 @@ public class Menu {
 	private void displayAllGenres() throws SQLException {
 		List<Genre> genreOptions = genreDao.getAllGenre();
 		for ( Genre genre : genreOptions ) {
-			System.out.println(genre.getGenreId() + ": " + genre.getGenreName() + "\n");
+			System.out.println(genre.getGenreId() + ": " + genre.getGenreName());
 		}
 		
 	}
