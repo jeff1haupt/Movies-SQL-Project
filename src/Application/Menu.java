@@ -22,7 +22,7 @@ public class Menu {
 	private MovieDao movieDao = new MovieDao();
 	private RatingDao ratingDao = new RatingDao();
 
-
+	Scanner intScanner = new Scanner(System.in);
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
 			"Create a movie",
@@ -112,21 +112,31 @@ public class Menu {
 		System.exit(0);
 	}
 	
-	private void createMovie() {
+	private void createMovie() throws SQLException {
 		// TODO Auto-generated method stub
 		System.out.println("Enter the movie title: \n");
-		String movieTitle = scanner.next();
+		String movieTitle = scanner.nextLine();
 		System.out.println("Enter the total length in minutes: \n");
-		int movieLength = scanner.nextInt();
+		int movieLength = intScanner.nextInt();
 		System.out.println("Enter the release date: \n");
-		String releaseDate = scanner.next();
+		String releaseDate = scanner.nextLine();
 		System.out.println("Enter movie's director: \n");
-		String director = scanner.next();
+		String director = scanner.nextLine();
 		System.out.println("Enter movie's actor: \n");
-		String actor = scanner.next();
+		String actor = scanner.nextLine();
 		System.out.println("Enter movie's revenue earned: \n");
-		String moneyMade = scanner.next();
-		movieDao.addRun(movieTitle, movieLength, releaseDate, director, actor, moneyMade);
+		String moneyMade = scanner.nextLine();
+		System.out.println("Select the movies genre: \n"
+				+ "1) Action\n"
+				+ "2) Animation\n"
+				+ "3) Comedy\n"
+				+ "4) Crime\n"
+				+ "5) Drama\n"
+				+ "6) Romance\n"
+				+ "7) War\n");
+		int genreId = intScanner.nextInt();
+		
+		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId);
 	}
 
 	private void updateMovie() {
@@ -159,7 +169,7 @@ public class Menu {
 	private void updateGenre() throws SQLException {
 		System.out.println("Enter the id for the genre you would like to update: \n");
 		int updateGenre = scanner.nextInt();
-		System.out.println("Please enter the updated genre: ")
+		System.out.println("Please enter the updated genre: ");
 		String updatedGenre = scanner.nextLine();
 		genreDao.updateGenre(updateGenre, updatedGenre);
 	}
@@ -188,7 +198,7 @@ public class Menu {
 		
 		do {
 		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = in.nextInt();
+		starRating = scanner.nextInt();
 		} while (starRating < 0 || starRating > 5);
 		System.out.println("Thank you for entering a " + starRating + " star rating.");
 		
