@@ -56,4 +56,13 @@ public class GenreDao {
 		}
 		return genres;
 		}
+
+	public String getGenreNameById(int genres) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(GET_GENRE_BY_ID_QUERY);
+		ps.setInt(1, genres);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		String genreName = rs.getString(2);
+		return genreName;
+	}
 }

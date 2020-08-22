@@ -16,8 +16,6 @@ import Dao.MovieDao;
 
 public class Menu {
 
-
-
 	private GenreDao genreDao = new GenreDao();
 	private MovieDao movieDao = new MovieDao();
 	//private RatingDao ratingDao = new RatingDao();
@@ -33,10 +31,8 @@ public class Menu {
 			"Update a genre by id",
 			"Display all movies by genre",
 			"Delete a genre by id",
-			"Create a rating by movie id",
-			"Update rating by id",
+			"Update star rating by movie id",
 			"Display all movies by number of stars",
-			"Delete a rating",
 			"Get Genre By ID",
 			"Close App");
 	
@@ -66,14 +62,10 @@ public class Menu {
 			} else if ( userSelection.equals("8") ) {
 				deleteGenre();
 			} else if ( userSelection.equals("9") ) {
-				//createRating();
-			} else if ( userSelection.equals("10") ) {
 				//updateRating();
-			} else if ( userSelection.equals("11") ) {
+			} else if ( userSelection.equals("10") ) {
 				displayAllMoviesByRating();
-			} else if ( userSelection.equals("12") ) {
-				//deleteRating();
-			} else if (userSelection.equals("13")) {
+			} else if (userSelection.equals("11")) {
 				getGenreByIdMenu();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
@@ -248,15 +240,25 @@ public class Menu {
 		
 	}
 	
-	//displays all movies with their title and id
+	//displays all movies with all of their information
+	//format still?
 	private void displayAllMovies() throws SQLException {
+		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-13s \n", 
+				"Movie Title: ", "Length: ", "Released: ", "Director: ",
+				"Lead Actor: ", "Revenue: ", "Movie Genre: ");
+		String dash = "-".repeat(120);
+		System.out.println(dash);
 		List<Movie> movies = movieDao.getMovie(); 
+		String genreName = "";
 		for ( Movie m : movies ) {
-			System.out.println(m.getMovieTitle() + " : " + m.getMovieLength() + " : " 
-					+ m.getReleaseDate() + " : " + m.getDirector() + " : " 
-					+ m.getLeadActor() + " : " + m.getRevenue() + " : " 
-					+ genreDao.getGenreById(m.getGenres()));
+			genreName = genreDao.getGenreNameById(m.getGenres());
+			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-13s \n",
+					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
+					m.getDirector(), m.getLeadActor(), m.getRevenue(),
+					genreName);
+			
 			}
+		
 		
 	}
 
