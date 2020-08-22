@@ -15,9 +15,9 @@ public class MovieDao {
 	
 	private Connection connection;
 	private final String CREATE_NEW_MOVIE_QUERY = "INSERT INTO movie(movie_title, movie_length, release_date, director, "
-							+ "lead_actor, revenue_made, genre_id, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+							+ "lead_actor, revenue_made, genre_id, rating_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String UPDATE_MOVIE_BY_ID_QUERY = "UPDATE movie SET movie_title = ?, movie_length = ?, release_date =?, director =?,"
-			+ "lead_actor= ?, revenue_made =?, genre_id =?, rating=? WHERE id =?";
+			+ "lead_actor= ?, revenue_made =?, genre_id =?, rating_id=? WHERE id =?";
 	private final String DISPLAY_ALL_MOVIES_QUERY = "SELECT * FROM movie";
 	private final String DELETE_MOVIE_BY_ID_QUERY = "DELETE FROM movie WHERE id = ?";
 	private final String GET_MOVIES_BY_RATING = "SELECT * FROM movie WHERE rating_id=?";
