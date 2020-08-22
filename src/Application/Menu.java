@@ -65,7 +65,7 @@ public class Menu {
 			} else if ( userSelection.equals("8") ) {
 				deleteGenre();
 			} else if ( userSelection.equals("9") ) {
-				//updateRating();
+				updateRating();
 			} else if ( userSelection.equals("10") ) {
 				displayAllMoviesByRating();
 			} else if ( userSelection.equals("11") ) {
@@ -82,11 +82,6 @@ public class Menu {
 			scanner.nextLine();
 			
 		} while (!userSelection.equals("0"));
-		
-	}
-
-	private void deleteRating() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -250,19 +245,21 @@ public class Menu {
 	//displays all movies with all of their information
 	//format still?
 	private void displayAllMovies() throws SQLException {
-		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-13s \n", 
+		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-13s %-20s \n", 
 				"Movie Title: ", "Length: ", "Released: ", "Director: ",
-				"Lead Actor: ", "Revenue: ", "Movie Genre: ");
-		String dash = "-".repeat(120);
+				"Lead Actor: ", "Revenue: ", "Movie Genre: ", "Movie Rating: ");
+		String dash = "-".repeat(150);
 		System.out.println(dash);
 		List<Movie> movies = movieDao.getMovie(); 
 		String genreName = "";
+		String ratingName = "";
 		for ( Movie m : movies ) {
 			genreName = genreDao.getGenreNameById(m.getGenres());
-			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-13s \n",
+			ratingName = ratingDao.getRatingById(m.getRatings());
+			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-13s %-20s \n",
 					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
 					m.getDirector(), m.getLeadActor(), m.getRevenue(),
-					genreName);
+					genreName, ratingName);
 			
 			}
 		
@@ -307,55 +304,18 @@ public class Menu {
 	}
 	
 	
-	/*I think we should remove the createRating Method.
-	 * From a logical flow standpoint, it doesn't seem to 
-	 * really make a lot of sense.  
-	 * The rating system would be better served by just being another column in the 
-	 * Movie Entity and then we can still complete a search on the rating 
-	 * or perhaps even an update on the rating itself?
-	 * -- from jeff -- 
-	 */
-	//creates a rating of a movie. Star rating is only 1-5
-	/*
-	private void createRating() throws SQLException {
-		int starRating;
-		
-		System.out.print("Enter the movie id you wish to rate: ");
-		int movieId = Integer.parseInt(scanner.nextLine());
-		
-		do {
-		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = scanner.nextInt();
-		} while (starRating < 0 || starRating > 5);
-		System.out.println("Thank you for entering a " + starRating + " star rating.");
-		
-		ratingDao.createNewRating(movieId, starRating);
-	} */
-	
-	//updates a rating by entering id and can only enter stars 1-5
-	//should this be more of a movieDao function?
-	//meaning if we update the rating, we would want to update the rating for the particular
-	// movie and not update the actual rating?
-	// my thought is that ratings should only have 5 possible id's 
-	// and those id's should be a foreign key on movie
-	
-	/*
 	private void updateRating() throws SQLException {
-		int starRating;
-		
-		System.out.print("Enter rating id to update star rating: ");
-		int ratingId = Integer.parseInt(scanner.nextLine());
-		
-		do {
-		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = scanner.nextInt();
-		} while (starRating < 0 || starRating > 5);
-		System.out.println("Thank you for entering a " + starRating + " star rating.");
-			
-		ratingDao.updateRatingById(ratingId, starRating);
+		System.out.println("Here are the current movie ratings: ");
+		displayAllRatings();
+		System.out.print("Enter rating number you want to change: ");
+		int ratingId = intScanner.nextInt();
+		System.out.println("What would you like the rating changed to?");
+		String updatedRating = scanner.nextLine();			
+		ratingDao.updateRatingById(ratingId, updatedRating);
+		System.out.println("The updated rating list is: ");
+		displayAllRatings();
 	}
-	*/
-	
+
 	private void displayAllMoviesByRating() throws SQLException {
 		System.out.println("Enter the rating number below to see a list of movies with that rating: \n");
 		displayAllRatings();
@@ -371,19 +331,21 @@ public class Menu {
 	}
 	
 	private void createNewRating() throws SQLException {
+		System.out.println("Here are the current ratings: ");
+		displayAllRatings();
 		System.out.println("Enter the new 'rating' you want to create: ");
 		String newRating = scanner.nextLine();
 		ratingDao.createNewRating(newRating);
 	}
-	/* 
-	 * I set out above why I think this should be deleted, so I am commenting it out for now
-	 * 
 
-	private void deleteRating() {
-		// TODO Auto-generated method stub
+	private void deleteRating() throws SQLException {
+		System.out.println("Here are the current ratings: ");
+		displayAllRatings();
+		System.out.println("Enter the number for the 'rating' you want to delete: ");
+		int delete = intScanner.nextInt();
+		ratingDao.deleteARating(delete);
 		
-		
-	} */
+	} 
 	
 	private void displayAllGenres() throws SQLException {
 		List<Genre> genreOptions = genreDao.getAllGenre();
