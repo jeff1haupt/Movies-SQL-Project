@@ -265,7 +265,7 @@ public class Menu {
 		movieDao.deleteMovie(movieIdDelete);
 	}
 
-	// creates a new move genre
+	// creates a new move genre. need to add list of genres when new genre is added
 	private void createGenre() throws SQLException {
 		System.out.print("Enter new genre: ");
 		String genreName = scanner.nextLine();                                                             
