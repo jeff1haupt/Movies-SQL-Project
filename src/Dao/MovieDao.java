@@ -14,8 +14,8 @@ import Entity.Movie;
 public class MovieDao {
 	
 	private Connection connection;
-	private final String CREATE_NEW_MOVIE_QUERY = "INSERT INTO movie(String movieTitle, int movieLength, String releaseDate, String director, \n" + 
-			"				String leadActor, String revenueMade, int genreId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private final String CREATE_NEW_MOVIE_QUERY = "INSERT INTO movie(movie_title, movie_length, release_date, director, "
+							+ "lead_actor, revenue_made, genre_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private final String UPDATE_MOVIE_BY_ID_QUERY = "UPDATE movie SET movie_title = ?, movie_length = ?, release_date =?, director =?,"
 			+ "lead_actor= ?, revenueMade =?, genre_id =? WHERE id =?";
 	private final String DISPLAY_ALL_MOVIES_QUERY = "SELECT * FROM movie";
@@ -36,7 +36,8 @@ public class MovieDao {
 			ps.setString(5, leadActor);
 			ps.setString(6, revenueMade);
 			ps.setInt(7, genreId);
-			ps.executeUpdate();
+			int x = ps.executeUpdate();
+			System.out.println("You have successfully added " + x + " movie to the list.");
 		}
 		
 	// 2. update a movie

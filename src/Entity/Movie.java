@@ -11,10 +11,10 @@ public class Movie {
 	private String director;
 	private String leadActor;
 	private String revenue;
-	private List<Genre> genres;
+	private int genres;
 	
 	public Movie (int movieId, String movieTitle, int movieLength, String releaseDate, 
-			String director, String leadActor, String revenue, List<Genre> genres) {
+			String director, String leadActor, String revenue, int genres) {
 		this.setMovieId(movieId);
 		this.setMovieTitle(movieTitle);
 		this.setMovieLength(movieLength);
@@ -81,11 +81,11 @@ public class Movie {
 		this.revenue = revenue;
 	}
 
-	public List<Genre> getGenres() {
+	public int getGenres() {
 		return genres;
 	}
 
-	public void setGenres(List<Genre> genres) {
+	public void setGenres(int genres) {
 		this.genres = genres;
 	}
 

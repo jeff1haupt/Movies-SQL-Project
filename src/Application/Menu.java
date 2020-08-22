@@ -22,7 +22,7 @@ public class Menu {
 	private MovieDao movieDao = new MovieDao();
 	private RatingDao ratingDao = new RatingDao();
 
-
+	Scanner intScanner = new Scanner(System.in);
 	Scanner scanner = new Scanner(System.in);
 	private List<String> options = Arrays.asList(
 			"Create a movie",
@@ -117,7 +117,7 @@ public class Menu {
 		System.out.println("Enter the movie title: \n");
 		String movieTitle = scanner.nextLine();
 		System.out.println("Enter the total length in minutes: \n");
-		int movieLength = scanner.nextInt();
+		int movieLength = intScanner.nextInt();
 		System.out.println("Enter the release date: \n");
 		String releaseDate = scanner.nextLine();
 		System.out.println("Enter movie's director: \n");
@@ -134,7 +134,7 @@ public class Menu {
 				+ "5) Drama\n"
 				+ "6) Romance\n"
 				+ "7) War\n");
-		int genreId = scanner.nextInt();
+		int genreId = intScanner.nextInt();
 		
 		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId);
 	}
