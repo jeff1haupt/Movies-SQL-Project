@@ -160,7 +160,7 @@ public class Menu {
 		// TODO Auto-generated method stub
 		System.out.println("Enter the id for the genre you would like to update: \n");
 		int updateGenre = scanner.nextInt();
-		System.out.println("Please enter the updated genre: ")
+		System.out.println("Please enter the updated genre: ");
 		String updatedGenre = scanner.nextLine();
 		genreDao.updateGenre(updateGenre, updatedGenre);
 	}
@@ -187,7 +187,7 @@ public class Menu {
 		
 		do {
 		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = in.nextInt();
+		starRating = scanner.nextInt();
 		} while (starRating < 0 || starRating > 5);
 		System.out.println("Thank you for entering a " + starRating + " star rating.");
 		
