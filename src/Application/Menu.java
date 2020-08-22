@@ -1,6 +1,7 @@
 package Application;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -12,11 +13,9 @@ import Entity.Movie;
 import Entity.Genre;
 import Entity.Rating;
 
-
+import Dao.MovieDao;
 
 public class Menu {
-
-
 
 	private GenreDao genreDao = new GenreDao();
 	private MovieDao movieDao = new MovieDao();
@@ -33,9 +32,9 @@ public class Menu {
 			"Update a genre by id",
 			"Display all movies by genre",
 			"Delete a genre by id",
-			"Create a rating by movie id",
-			"Display all movies by number of stars",
-			"Update rating by id",
+			"Update rating",
+			"Display all movies by rating",
+			"Create new rating",
 			"Delete a rating",
 			"Get Genre By ID",
 			"Close App");
@@ -66,14 +65,14 @@ public class Menu {
 			} else if ( userSelection.equals("8") ) {
 				deleteGenre();
 			} else if ( userSelection.equals("9") ) {
-				createRating();
-			} else if ( userSelection.equals("10") ) {
 				updateRating();
-			} else if ( userSelection.equals("11") ) {
+			} else if ( userSelection.equals("10") ) {
 				displayAllMoviesByRating();
+			} else if ( userSelection.equals("11") ) {
+				createNewRating();
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
-			} else if (userSelection.equals("13")) {
+			} else if ( userSelection.equals("12") ) {
 				getGenreByIdMenu();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
@@ -126,30 +125,148 @@ public class Menu {
 		String actor = scanner.nextLine();
 		System.out.println("Enter movie's revenue earned: \n");
 		String moneyMade = scanner.nextLine();
-		System.out.println("Select the movies genre: \n"
-				+ "1) Action\n"
-				+ "2) Animation\n"
-				+ "3) Comedy\n"
-				+ "4) Crime\n"
-				+ "5) Drama\n"
-				+ "6) Romance\n"
-				+ "7) War\n");
+		System.out.println("Select the movies genre: \n");
+		displayAllGenres();
 		int genreId = intScanner.nextInt();
+		System.out.println("Enter a 1 to 5 star rating: \n");
+		int ratingId = intScanner.nextInt();
 		
-		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId);
+		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId, ratingId);
 	}
 
-	private void updateMovie() {
-		// TODO Auto-generated method stub
+	private void updateMovie() throws SQLException {
+		String title = "";
+		int length = 0;
+		String date = "";
+		String director2 = "";
+		String actor2 = "";
+		String money = "";
+		int genreId2 = 0;
+		int ratingId2 = 0; 
+		
+		System.out.println("Enter the id of the movie you would like to update: \n");
+		int movieId = intScanner.nextInt();
+		List<Movie> movies = movieDao.getMovieById(movieId);
+		for ( Movie m : movies ) {
+			//Updating Movie Title
+			System.out.println("The movie title is: " + m.getMovieTitle() + " \n"
+					+ "Do you want to change the title? Enter y/n: ");
+			String change = scanner.nextLine();
+			if ( change.equals("y") ) {
+				System.out.println("Enter the NEW title: ");
+				title = scanner.nextLine();
+			} else {
+				title = m.getMovieTitle();
+			}
+			
+			//Updating movie length
+			System.out.println("The movie length is (in minutes): " + m.getMovieLength() + " \n"
+					+ "Do you want to change the length? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW length: ");
+				length = intScanner.nextInt();
+			} else {
+				length = m.getMovieLength();
+			}
+			
+			//Updating movie release date
+			System.out.println("The movie release date is: " + m.getReleaseDate() + " \n"
+					+ "Do you want to change the release date? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW date (format: yyyy-mm-dd): ");
+				date = scanner.nextLine();
+			} else {
+				date = m.getReleaseDate();
+			}
+			
+			//Updating movie director
+			System.out.println("The movie's director is: " + m.getDirector() + " \n"
+					+ "Do you want to change the director? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW director: ");
+				director2 = scanner.nextLine();
+			} else {
+				director2 = m.getDirector();
+			}
+			
+			//Updating movie actor
+			System.out.println("The movie's main actor is: " + m.getLeadActor() + " \n"
+					+ "Do you want to change the actor? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW lead actor: ");
+				actor2 = scanner.nextLine();
+			} else {
+				actor2 = m.getLeadActor();
+			}
+			
+			//Updating movie revenue
+			System.out.println("The movie's current earnings are: " + m.getRevenue() + " \n"
+					+ "Do you want to change the revenue amount? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW revenue amount ( format : $xxx,xxx,xxx.xx): ");
+				money = scanner.nextLine();
+			} else {
+				money = m.getRevenue();
+			}
+			
+			//Updating movie genre
+			System.out.println("The movie's genre is : " + m.getGenres() + " \n"
+					+ "Do you want to change the genre? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW genre: ");
+				displayAllGenres();
+				genreId2 = intScanner.nextInt();
+			} else {
+				genreId2 = m.getGenres();
+			}
+			
+			//Updating movie rating
+			String ratingName = ratingDao.getRatingById(m.getRatings());
+			System.out.println("The movie's rating is : " + ratingName + " \n"
+					+ "Do you want to change the rating? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("\nThe current list of ratings: ");
+				displayAllRatings();
+				System.out.println("Enter the NEW rating number: ");
+				ratingId2 = intScanner.nextInt();
+			} else {
+				ratingId2 = m.getRatings();
+			}
+		} // end for loop
+		
+		movieDao.updateMovie(title, length, date, director2, actor2, money, genreId2, ratingId2, movieId);
 		
 	}
 	
-	//displays all movies with their title and id
+	//displays all movies with all of their information
+	//format still?
 	private void displayAllMovies() throws SQLException {
+		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-13s %-20s \n", 
+				"Movie Title: ", "Length: ", "Released: ", "Director: ",
+				"Lead Actor: ", "Revenue: ", "Movie Genre: ", "Movie Rating: ");
+		String dash = "-".repeat(150);
+		System.out.println(dash);
 		List<Movie> movies = movieDao.getMovie(); 
-		for(Movie movie : movies) {
-			System.out.println(movie.getMovieId() + " : " + movie.getMovieTitle());
-		}
+		String genreName = "";
+		String ratingName = "";
+		for ( Movie m : movies ) {
+			genreName = genreDao.getGenreNameById(m.getGenres());
+			ratingName = ratingDao.getRatingById(m.getRatings());
+			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-13s %-20s \n",
+					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
+					m.getDirector(), m.getLeadActor(), m.getRevenue(),
+					genreName, ratingName);
+			
+			}
+		
+		
 	}
 
 	private void deleteMovie() throws SQLException {
@@ -159,7 +276,7 @@ public class Menu {
 		movieDao.deleteMovie(movieIdDelete);
 	}
 
-	// creates a new move genre
+	// creates a new move genre. need to add list of genres when new genre is added
 	private void createGenre() throws SQLException {
 		System.out.print("Enter new genre: ");
 		String genreName = scanner.nextLine();                                                             
@@ -186,48 +303,68 @@ public class Menu {
 	}
 
 	private void deleteGenre() {
-		
+
 	}
 	
-	//creates a rating of a movie. Star rating is only 1-5
-	private void createRating() throws SQLException {
-		int starRating;
-		
-		System.out.print("Enter the movie id you wish to rate: ");
-		int movieId = Integer.parseInt(scanner.nextLine());
-		
-		do {
-		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = scanner.nextInt();
-		} while (starRating < 0 || starRating > 5);
-		System.out.println("Thank you for entering a " + starRating + " star rating.");
-		
-		ratingDao.createNewRating(movieId, starRating);
-	}
 	
-	//updates a rating by entering id and can only enter stars 1-5
 	private void updateRating() throws SQLException {
-		int starRating;
-		
-		System.out.print("Enter rating id to update star rating: ");
-		int ratingId = Integer.parseInt(scanner.nextLine());
-		
-		do {
-		System.out.print("Enter the number of stars you wish to rate the movie, 1-5 ONLY: ");
-		starRating = scanner.nextInt();
-		} while (starRating < 0 || starRating > 5);
-		System.out.println("Thank you for entering a " + starRating + " star rating.");
-			
-		ratingDao.updateRatingById(ratingId, starRating);
+		System.out.println("Here are the current movie ratings: ");
+		displayAllRatings();
+		System.out.print("Enter rating number you want to change: ");
+		int ratingId = intScanner.nextInt();
+		System.out.println("What would you like the rating changed to?");
+		String updatedRating = scanner.nextLine();			
+		ratingDao.updateRatingById(ratingId, updatedRating);
+		System.out.println("The updated rating list is: ");
+		displayAllRatings();
+		System.out.println("\n\n");
+	}
+
+	private void displayAllMoviesByRating() throws SQLException {
+		System.out.println("Enter the rating number below to see a list of movies with that rating: \n");
+		displayAllRatings();
+		int movieRating = intScanner.nextInt();
+		List<Movie> moviesByRating = movieDao.getMovieByRating(movieRating);
+		String ratingName = ratingDao.getRatingById(movieRating);
+		System.out.println("Here is your list of movies with a rating of '"+ ratingName + "'");
+		for ( Movie m : moviesByRating ) {
+			System.out.println(m.getMovieTitle() + " : " + m.getMovieLength() + " : " 
+					+ m.getReleaseDate() + " : " + m.getDirector() + " : " 
+					+ m.getLeadActor() + " : " + m.getRevenue() + " : " 
+					+ m.getGenres());
+			}
+		System.out.println("\n\n");
 	}
 	
-	private void displayAllMoviesByRating() {
-		// TODO Auto-generated method stub
+	private void createNewRating() throws SQLException {
+		System.out.println("Here are the current ratings: ");
+		displayAllRatings();
+		System.out.println("Enter the new 'rating' you want to create: ");
+		String newRating = scanner.nextLine();
+		ratingDao.createNewRating(newRating);
+	}
+
+	private void deleteRating() throws SQLException {
+		System.out.println("Here are the current ratings: ");
+		displayAllRatings();
+		System.out.println("Enter the number for the 'rating' you want to delete: ");
+		int delete = intScanner.nextInt();
+		ratingDao.deleteARating(delete);
+		
+	} 
+	
+	private void displayAllGenres() throws SQLException {
+		List<Genre> genreOptions = genreDao.getAllGenre();
+		for ( Genre genre : genreOptions ) {
+			System.out.println(genre.getGenreId() + ": " + genre.getGenreName());
+		}
 		
 	}
 	
-	private void deleteRating() {
-		// TODO Auto-generated method stub
-		
+	private void displayAllRatings() throws SQLException {
+		List<Rating> ratingOptions = ratingDao.getAllRatings();
+		for ( Rating rating : ratingOptions ) {
+			System.out.println( rating.getRatingId() + ": " + rating.getRatingScale());
+		}
 	}
 }

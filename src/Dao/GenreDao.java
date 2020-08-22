@@ -52,8 +52,22 @@ public class GenreDao {
 		ResultSet rs = connection.prepareStatement(GET_ALL_GENRES).executeQuery();
 		List<Genre> genres = new ArrayList<Genre>();
 		while(rs.next()) {
-			genres.add(rs.getInt(1), null);
+			genres.add(populateGenres(rs.getInt(1), rs.getString(2)));
 		}
 		return genres;
 		}
+
+	private Genre populateGenres(int i, String string) {
+		// TODO Auto-generated method stub
+		return new Genre(i,string);
+	}
+
+	public String getGenreNameById(int genres) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(GET_GENRE_BY_ID_QUERY);
+		ps.setInt(1, genres);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		String genreName = rs.getString(2);
+		return genreName;
+	}
 }

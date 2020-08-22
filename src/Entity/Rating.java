@@ -5,13 +5,12 @@ import java.util.List;
 public class Rating {
 	
 	private int ratingId;
-	private int starRating;
-	private List<Movie> movies;
+	private String ratingScale;
 	
-	public Rating (int ratingId, int starRating, List<Movie> movies) {
+	public Rating (int ratingId, String ratingScale) {
 		this.setRatingId(ratingId);
-		this.setStarRating(starRating);
-		this.setMovies(movies);
+		this.setRatingScale(ratingScale);
+
 
 }
 
@@ -23,19 +22,12 @@ public class Rating {
 		this.ratingId = ratingId;
 	}
 
-	public int getStarRating() {
-		return starRating;
+
+	public String getRatingScale() {
+		return ratingScale;
 	}
 
-	public void setStarRating(int starRating) {
-		this.starRating = starRating;
-	}
-
-	public List<Movie> getMovies() {
-		return movies;
-	}
-
-	public void setMovies(List<Movie> movies) {
-		this.movies = movies;
+	public void setRatingScale(String ratingScale) {
+		this.ratingScale = ratingScale;
 	}
 }
