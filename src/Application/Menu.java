@@ -112,21 +112,31 @@ public class Menu {
 		System.exit(0);
 	}
 	
-	private void createMovie() {
+	private void createMovie() throws SQLException {
 		// TODO Auto-generated method stub
 		System.out.println("Enter the movie title: \n");
-		String movieTitle = scanner.next();
+		String movieTitle = scanner.nextLine();
 		System.out.println("Enter the total length in minutes: \n");
 		int movieLength = scanner.nextInt();
 		System.out.println("Enter the release date: \n");
-		String releaseDate = scanner.next();
+		String releaseDate = scanner.nextLine();
 		System.out.println("Enter movie's director: \n");
-		String director = scanner.next();
+		String director = scanner.nextLine();
 		System.out.println("Enter movie's actor: \n");
-		String actor = scanner.next();
+		String actor = scanner.nextLine();
 		System.out.println("Enter movie's revenue earned: \n");
-		String moneyMade = scanner.next();
-		movieDao.addRun(movieTitle, movieLength, releaseDate, director, actor, moneyMade);
+		String moneyMade = scanner.nextLine();
+		System.out.println("Select the movies genre: \n"
+				+ "1) Action\n"
+				+ "2) Animation\n"
+				+ "3) Comedy\n"
+				+ "4) Crime\n"
+				+ "5) Drama\n"
+				+ "6) Romance\n"
+				+ "7) War\n");
+		int genreId = scanner.nextInt();
+		
+		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId);
 	}
 
 	private void updateMovie() {

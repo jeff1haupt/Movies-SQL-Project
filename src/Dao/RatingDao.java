@@ -7,4 +7,9 @@ public class RatingDao {
 		
 	}
 
+	public void updateRatingById(int ratingId, int starRating) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
