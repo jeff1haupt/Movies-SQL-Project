@@ -15,6 +15,9 @@ public class RatingDao {
 	private Connection connection; 
 	private final String CREATE_NEW_RATING = "INSERT INTO rating (rating_scale) VALUE (?)";
 	private final String GET_ALL_RATINGS = "SELECT * FROM rating";
+	private final String DELETE_RATING = "DELETE FROM rating WHERE id = ?";
+	private final String UPDATE_RATING = "UPDATE rating SET rating_scale = ? WHERE id = ?";
+	private final String GET_RATING_BY_ID = "SELECT * FROM rating WHERE id = ?";
 	
 	public RatingDao() {
 		connection = DBConnection.getConnection();
@@ -28,8 +31,11 @@ public class RatingDao {
 	}
 		
 
-	public void updateRatingById(int ratingId, int starRating) {
-		// TODO Auto-generated method stub
+	public void updateRatingById(int ratingId, String updatedRating) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(UPDATE_RATING);
+		ps.setString(1, updatedRating);
+		ps.setInt(2, ratingId);
+		ps.executeUpdate();
 		
 	}
 
@@ -43,8 +49,24 @@ public class RatingDao {
 		}
 
 	private Rating populateRatings(int int1, String string) {
-		// TODO Auto-generated method stub
+		
 		return new Rating(int1, string);
+	}
+
+	public void deleteARating(int deleteRating) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(DELETE_RATING);
+		ps.setInt(1, deleteRating);
+		ps.executeUpdate();
+		System.out.println("Your rating was deleted.");
+	}
+
+	public String getRatingById(int ratings) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(GET_RATING_BY_ID);
+		ps.setInt(1, ratings);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		String ratingName = rs.getString(2);
+		return ratingName;
 	}
 }
 	
