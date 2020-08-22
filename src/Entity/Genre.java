@@ -7,11 +7,9 @@ public class Genre {
 	private String genreName;
 	private List<Movie> movies;
 	
-	public Genre (int genreId, String genreName, List<Movie> movies) {
+	public Genre (int genreId, String genreName) {
 		this.setGenreId(genreId);
 		this.setGenreName(genreName);
-		this.setMovies(movies);
-
 }
 
 	public int getGenreId() {

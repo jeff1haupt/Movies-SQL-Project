@@ -157,7 +157,6 @@ public class Menu {
 	}
 
 	private void updateGenre() throws SQLException {
-		// TODO Auto-generated method stub
 		System.out.println("Enter the id for the genre you would like to update: \n");
 		int updateGenre = scanner.nextInt();
 		System.out.println("Please enter the updated genre: ")
@@ -166,15 +165,17 @@ public class Menu {
 	}
 
 	private void displayAllMoviesByGenre() throws SQLException {
-		// TODO Auto-generated method stub
+		List<Genre> moviesByGenre = genreDao.getAllGenre();
+		int counter = 1;
+		for(Genre m : moviesByGenre) {
+			System.out.println(" " + counter + ":  " + m);
+		}
 		System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
 		int genreId = scanner.nextInt();
-		List<Movie> moviesByGenre = genreDao.getMoviesByGenre(genreId);
-		
+
 	}
 
 	private void deleteGenre() {
-		// TODO Auto-generated method stub
 		
 	}
 	
