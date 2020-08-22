@@ -141,8 +141,110 @@ public class Menu {
 		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId, ratingId);
 	}
 
-	private void updateMovie() {
-		// TODO Auto-generated method stub
+	private void updateMovie() throws SQLException {
+		String title = "";
+		int length = 0;
+		String date = "";
+		String director2 = "";
+		String actor2 = "";
+		String money = "";
+		int genreId2 = 0;
+		int ratingId2 = 0; 
+		
+		System.out.println("Enter the id of the movie you would like to update: \n");
+		int movieId = intScanner.nextInt();
+		List<Movie> movies = movieDao.getMovieById(movieId);
+		for ( Movie m : movies ) {
+			//Updating Movie Title
+			System.out.println("The movie title is: " + m.getMovieTitle() + " \n"
+					+ "Do you want to change the title? Enter y/n: ");
+			String change = scanner.nextLine();
+			if ( change.equals("y") ) {
+				System.out.println("Enter the NEW title: ");
+				title = scanner.nextLine();
+			} else {
+				title = m.getMovieTitle();
+			}
+			
+			//Updating movie length
+			System.out.println("The movie length is (in minutes): " + m.getMovieLength() + " \n"
+					+ "Do you want to change the length? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW length: ");
+				length = intScanner.nextInt();
+			} else {
+				length = m.getMovieLength();
+			}
+			
+			//Updating movie release date
+			System.out.println("The movie release date is: " + m.getReleaseDate() + " \n"
+					+ "Do you want to change the release date? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW date (format: yyyy-mm-dd): ");
+				date = scanner.nextLine();
+			} else {
+				date = m.getReleaseDate();
+			}
+			
+			//Updating movie director
+			System.out.println("The movie's director is: " + m.getDirector() + " \n"
+					+ "Do you want to change the director? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW director: ");
+				director2 = scanner.nextLine();
+			} else {
+				director2 = m.getDirector();
+			}
+			
+			//Updating movie actor
+			System.out.println("The movie's main actor is: " + m.getLeadActor() + " \n"
+					+ "Do you want to change the actor? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW lead actor: ");
+				actor2 = scanner.nextLine();
+			} else {
+				actor2 = m.getLeadActor();
+			}
+			
+			//Updating movie revenue
+			System.out.println("The movie's current earnings are: " + m.getRevenue() + " \n"
+					+ "Do you want to change the revenue amount? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW revenue amount ( format : $xxx,xxx,xxx.xx): ");
+				money = scanner.nextLine();
+			} else {
+				money = m.getRevenue();
+			}
+			
+			//Updating movie genre
+			System.out.println("The movie's genre is : " + m.getGenres() + " \n"
+					+ "Do you want to change the genre id? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW genre id: ");
+				genreId2 = intScanner.nextInt();
+			} else {
+				genreId2 = m.getGenres();
+			}
+			
+			//Updating movie rating
+			System.out.println("The movie's star rating is : " + m.getRatings() + " \n"
+					+ "Do you want to change the rating? Enter y/n: ");
+			change = scanner.nextLine();
+			if ( change.contentEquals("y") ) {
+				System.out.println("Enter the NEW genre id: ");
+				ratingId2 = intScanner.nextInt();
+			} else {
+				ratingId2 = m.getRatings();
+			}
+		} // end for loop
+		
+		movieDao.updateMovie(title, length, date, director2, actor2, money, genreId2, ratingId2, movieId);
 		
 	}
 	

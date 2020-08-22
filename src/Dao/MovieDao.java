@@ -17,10 +17,11 @@ public class MovieDao {
 	private final String CREATE_NEW_MOVIE_QUERY = "INSERT INTO movie(movie_title, movie_length, release_date, director, "
 							+ "lead_actor, revenue_made, genre_id, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String UPDATE_MOVIE_BY_ID_QUERY = "UPDATE movie SET movie_title = ?, movie_length = ?, release_date =?, director =?,"
-			+ "lead_actor= ?, revenueMade =?, genre_id =?, rating=? WHERE id =?";
+			+ "lead_actor= ?, revenue_made =?, genre_id =?, rating=? WHERE id =?";
 	private final String DISPLAY_ALL_MOVIES_QUERY = "SELECT * FROM movie";
 	private final String DELETE_MOVIE_BY_ID_QUERY = "DELETE FROM movie WHERE id = ?";
 	private final String GET_MOVIES_BY_RATING = "SELECT * FROM movie WHERE rating=?";
+	private final String DISPLAY_ALL_MOVIE_BY_ID = "SELECT * FROM movie WHERE id = ?";
 	
 	public MovieDao() {
 		connection = DBConnection.getConnection();
@@ -55,7 +56,20 @@ public class MovieDao {
 			ps.setInt(7, genreId);
 			ps.setInt(8, ratingId);
 			ps.setInt(9, id);
-			ps.executeUpdate();
+			int updateSuccess = ps.executeUpdate();
+			System.out.println("You have successfully updated " + updateSuccess + " movie.");
+		}
+		
+		//2b Update movie - grabbing the movie by id first 
+		public List<Movie> getMovieById(int movieId) throws SQLException {
+			PreparedStatement ps = connection.prepareStatement(DISPLAY_ALL_MOVIE_BY_ID);
+				ps.setInt(1, movieId);
+				ResultSet rs = ps.executeQuery();
+			List<Movie> movies = new ArrayList<Movie>();
+			while ( rs.next() ) {
+				movies.add( populateMovies( rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getInt(9)));
+			}
+			return movies;
 		}
 	
 	//3. display all movies
