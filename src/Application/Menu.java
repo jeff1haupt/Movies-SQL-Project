@@ -1,6 +1,7 @@
 package Application;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -118,14 +119,8 @@ public class Menu {
 		String actor = scanner.nextLine();
 		System.out.println("Enter movie's revenue earned: \n");
 		String moneyMade = scanner.nextLine();
-		System.out.println("Select the movies genre: \n"
-				+ "1) Action\n"
-				+ "2) Animation\n"
-				+ "3) Comedy\n"
-				+ "4) Crime\n"
-				+ "5) Drama\n"
-				+ "6) Romance\n"
-				+ "7) War\n");
+		System.out.println("Select the movies genre: \n");
+		displayAllGenres();
 		int genreId = intScanner.nextInt();
 		System.out.println("Enter a 1 to 5 star rating: \n");
 		int ratingId = intScanner.nextInt();
@@ -215,10 +210,11 @@ public class Menu {
 			
 			//Updating movie genre
 			System.out.println("The movie's genre is : " + m.getGenres() + " \n"
-					+ "Do you want to change the genre id? Enter y/n: ");
+					+ "Do you want to change the genre? Enter y/n: ");
 			change = scanner.nextLine();
 			if ( change.contentEquals("y") ) {
-				System.out.println("Enter the NEW genre id: ");
+				System.out.println("Enter the NEW genre: ");
+				displayAllGenres();
 				genreId2 = intScanner.nextInt();
 			} else {
 				genreId2 = m.getGenres();
@@ -296,8 +292,9 @@ public class Menu {
 	}
 
 	private void deleteGenre() {
-		
+
 	}
+	
 	
 	/*I think we should remove the createRating Method.
 	 * From a logical flow standpoint, it doesn't seem to 
@@ -371,4 +368,12 @@ public class Menu {
 		
 		
 	} */
+	
+	private void displayAllGenres() throws SQLException {
+		List<Genre> genreOptions = genreDao.getAllGenre();
+		for ( Genre genre : genreOptions ) {
+			System.out.println(genre.getGenreId() + ": " + genre.getGenreName() + "\n");
+		}
+		
+	}
 }
