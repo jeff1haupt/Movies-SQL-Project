@@ -12,9 +12,10 @@ public class Movie {
 	private String leadActor;
 	private String revenue;
 	private int genres;
+	private int ratings;
 	
 	public Movie (int movieId, String movieTitle, int movieLength, String releaseDate, 
-			String director, String leadActor, String revenue, int genres) {
+			String director, String leadActor, String revenue, int genres, int ratings) {
 		this.setMovieId(movieId);
 		this.setMovieTitle(movieTitle);
 		this.setMovieLength(movieLength);
@@ -23,6 +24,7 @@ public class Movie {
 		this.setLeadActor(leadActor);
 		this.setRevenue(revenue);
 		this.setGenres(genres);
+		this.setRatings(ratings);
 	}
 
 	public int getMovieId() {
@@ -87,6 +89,14 @@ public class Movie {
 
 	public void setGenres(int genres) {
 		this.genres = genres;
+	}
+
+	public int getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(int ratings) {
+		this.ratings = ratings;
 	}
 
 }

@@ -5,13 +5,10 @@ import java.util.List;
 public class Genre {
 	private int genreId;
 	private String genreName;
-	private List<Movie> movies;
 	
-	public Genre (int genreId, String genreName, List<Movie> movies) {
+	public Genre (int genreId, String genreName) {
 		this.setGenreId(genreId);
 		this.setGenreName(genreName);
-		this.setMovies(movies);
-
 }
 
 	public int getGenreId() {
@@ -30,11 +27,4 @@ public class Genre {
 		this.genreName = genreName;
 	}
 
-	public List<Movie> getMovies() {
-		return movies;
-	}
-
-	public void setMovies(List<Movie> movies) {
-		this.movies = movies;
-	}
 }
