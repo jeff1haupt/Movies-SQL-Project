@@ -12,7 +12,7 @@ import Entity.Movie;
 import Entity.Genre;
 import Entity.Rating;
 
-
+import Dao.MovieDao;
 
 public class Menu {
 
@@ -20,7 +20,7 @@ public class Menu {
 
 	private GenreDao genreDao = new GenreDao();
 	private MovieDao movieDao = new MovieDao();
-	private RatingDao ratingDao = new RatingDao();
+	//private RatingDao ratingDao = new RatingDao();
 
 	Scanner intScanner = new Scanner(System.in);
 	Scanner scanner = new Scanner(System.in);
@@ -34,8 +34,8 @@ public class Menu {
 			"Display all movies by genre",
 			"Delete a genre by id",
 			"Create a rating by movie id",
-			"Display all movies by number of stars",
 			"Update rating by id",
+			"Display all movies by number of stars",
 			"Delete a rating",
 			"Get Genre By ID",
 			"Close App");
@@ -66,13 +66,13 @@ public class Menu {
 			} else if ( userSelection.equals("8") ) {
 				deleteGenre();
 			} else if ( userSelection.equals("9") ) {
-				createRating();
+				//createRating();
 			} else if ( userSelection.equals("10") ) {
-				updateRating();
+				//updateRating();
 			} else if ( userSelection.equals("11") ) {
 				displayAllMoviesByRating();
 			} else if ( userSelection.equals("12") ) {
-				deleteRating();
+				//deleteRating();
 			} else if (userSelection.equals("13")) {
 				getGenreByIdMenu();
 			} else if ( userSelection.equals("0") ) {
@@ -135,8 +135,10 @@ public class Menu {
 				+ "6) Romance\n"
 				+ "7) War\n");
 		int genreId = intScanner.nextInt();
+		System.out.println("Enter a 1 to 5 star rating: \n");
+		int ratingId = intScanner.nextInt();
 		
-		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId);
+		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId, ratingId);
 	}
 
 	private void updateMovie() {
@@ -147,9 +149,13 @@ public class Menu {
 	//displays all movies with their title and id
 	private void displayAllMovies() throws SQLException {
 		List<Movie> movies = movieDao.getMovie(); 
-		for(Movie movie : movies) {
-			System.out.println(movie.getMovieId() + " : " + movie.getMovieTitle());
-		}
+		for ( Movie m : movies ) {
+			System.out.println(m.getMovieTitle() + " : " + m.getMovieLength() + " : " 
+					+ m.getReleaseDate() + " : " + m.getDirector() + " : " 
+					+ m.getLeadActor() + " : " + m.getRevenue() + " : " 
+					+ genreDao.getGenreById(m.getGenres()));
+			}
+		
 	}
 
 	private void deleteMovie() throws SQLException {
@@ -189,7 +195,16 @@ public class Menu {
 		
 	}
 	
+	/*I think we should remove the createRating Method.
+	 * From a logical flow standpoint, it doesn't seem to 
+	 * really make a lot of sense.  
+	 * The rating system would be better served by just being another column in the 
+	 * Movie Entity and then we can still complete a search on the rating 
+	 * or perhaps even an update on the rating itself?
+	 * -- from jeff -- 
+	 */
 	//creates a rating of a movie. Star rating is only 1-5
+	/*
 	private void createRating() throws SQLException {
 		int starRating;
 		
@@ -203,9 +218,16 @@ public class Menu {
 		System.out.println("Thank you for entering a " + starRating + " star rating.");
 		
 		ratingDao.createNewRating(movieId, starRating);
-	}
+	} */
 	
 	//updates a rating by entering id and can only enter stars 1-5
+	//should this be more of a movieDao function?
+	//meaning if we update the rating, we would want to update the rating for the particular
+	// movie and not update the actual rating?
+	// my thought is that ratings should only have 5 possible id's 
+	// and those id's should be a foreign key on movie
+	
+	/*
 	private void updateRating() throws SQLException {
 		int starRating;
 		
@@ -220,14 +242,29 @@ public class Menu {
 			
 		ratingDao.updateRatingById(ratingId, starRating);
 	}
+	*/
 	
-	private void displayAllMoviesByRating() {
-		// TODO Auto-generated method stub
-		
+	private void displayAllMoviesByRating() throws SQLException {
+		System.out.println("Enter a rating between 1 and 5 to see a list of movies with that rating: \n");
+		int movieRating = intScanner.nextInt();
+		List<Movie> moviesByRating = movieDao.getMovieByRating(movieRating);
+		System.out.println("Here is your list of "+ movieRating + " star movie(s)");
+		for ( Movie m : moviesByRating ) {
+			System.out.println(m.getMovieTitle() + " : " + m.getMovieLength() + " : " 
+					+ m.getReleaseDate() + " : " + m.getDirector() + " : " 
+					+ m.getLeadActor() + " : " + m.getRevenue() + " : " 
+					+ m.getGenres());
+			}
 	}
 	
+	
+	/* 
+	 * I set out above why I think this should be deleted, so I am commenting it out for now
+	 * 
+
 	private void deleteRating() {
 		// TODO Auto-generated method stub
 		
-	}
+		
+	} */
 }
