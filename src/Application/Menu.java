@@ -19,7 +19,7 @@ public class Menu {
 
 	private GenreDao genreDao = new GenreDao();
 	private MovieDao movieDao = new MovieDao();
-	//private RatingDao ratingDao = new RatingDao();
+	private RatingDao ratingDao = new RatingDao();
 
 	Scanner intScanner = new Scanner(System.in);
 	Scanner scanner = new Scanner(System.in);
@@ -32,8 +32,10 @@ public class Menu {
 			"Update a genre by id",
 			"Display all movies by genre",
 			"Delete a genre by id",
-			"Update star rating by movie id",
-			"Display all movies by number of stars",
+			"Update rating",
+			"Display all movies by rating",
+			"Create new rating",
+			"Delete a rating",
 			"Get Genre By ID",
 			"Close App");
 	
@@ -66,7 +68,11 @@ public class Menu {
 				//updateRating();
 			} else if ( userSelection.equals("10") ) {
 				displayAllMoviesByRating();
-			} else if (userSelection.equals("11")) {
+			} else if ( userSelection.equals("11") ) {
+				createNewRating();
+			} else if ( userSelection.equals("12") ) {
+				deleteRating();
+			} else if ( userSelection.equals("12") ) {
 				getGenreByIdMenu();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
@@ -76,6 +82,11 @@ public class Menu {
 			scanner.nextLine();
 			
 		} while (!userSelection.equals("0"));
+		
+	}
+
+	private void deleteRating() {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -265,7 +276,7 @@ public class Menu {
 		movieDao.deleteMovie(movieIdDelete);
 	}
 
-	// creates a new move genre
+	// creates a new move genre. need to add list of genres when new genre is added
 	private void createGenre() throws SQLException {
 		System.out.print("Enter new genre: ");
 		String genreName = scanner.nextLine();                                                             
@@ -346,7 +357,8 @@ public class Menu {
 	*/
 	
 	private void displayAllMoviesByRating() throws SQLException {
-		System.out.println("Enter a rating between 1 and 5 to see a list of movies with that rating: \n");
+		System.out.println("Enter the rating number below to see a list of movies with that rating: \n");
+		displayAllRatings();
 		int movieRating = intScanner.nextInt();
 		List<Movie> moviesByRating = movieDao.getMovieByRating(movieRating);
 		System.out.println("Here is your list of "+ movieRating + " star movie(s)");
@@ -358,7 +370,11 @@ public class Menu {
 			}
 	}
 	
-	
+	private void createNewRating() throws SQLException {
+		System.out.println("Enter the new 'rating' you want to create: ");
+		String newRating = scanner.nextLine();
+		ratingDao.createNewRating(newRating);
+	}
 	/* 
 	 * I set out above why I think this should be deleted, so I am commenting it out for now
 	 * 
@@ -375,5 +391,12 @@ public class Menu {
 			System.out.println(genre.getGenreId() + ": " + genre.getGenreName());
 		}
 		
+	}
+	
+	private void displayAllRatings() throws SQLException {
+		List<Rating> ratingOptions = ratingDao.getAllRatings();
+		for ( Rating rating : ratingOptions ) {
+			System.out.println( rating.getRatingId() + ": " + rating.getRatingScale());
+		}
 	}
 }
